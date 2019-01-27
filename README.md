@@ -1,12 +1,12 @@
 # Prasanna_Learns_Elm
 Intrigued by the functional programming pradigm in Elm am trying out few examples
 
-# Prerequisites
+### Prerequisites
 * Install
   * [elm](https://guide.elm-lang.org/install.html)
   * [node](https://nodejs.org/en/)
         
-# Running
+### Running
   
   Complie code by 
   
@@ -20,7 +20,7 @@ Intrigued by the functional programming pradigm in Elm am trying out few example
   ```
   and visit app at http://127.0.0.1:8080/
   
-# Formatting code (optional but recommended)
+### Formatting code (optional but recommended)
   
   Install elm format 
   ```
