@@ -14,11 +14,11 @@ Intrigued by the functional programming pradigm in Elm am trying out few example
   $ elm make HomePage.elm --output elm.js
   ```
   and open index.html ***Or***
-  run live server (optional)
+  run elm reactor (recommended)
   ```
-  $ live-server
+  $ elm reactor
   ```
-  and visit app at http://127.0.0.1:8080/
+  and visit app at http://127.0.0.1:8000/
   
 ### Formatting code (optional but recommended)
   
