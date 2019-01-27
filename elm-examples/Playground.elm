@@ -35,8 +35,4 @@ divide e f =
 
 
 main =
-    add 2 3
-        |> divide 25
-        |> multiply 6
-        |> String.fromFloat
-        |> Html.text
+    Html.text <| String.fromFloat <| add 5 <| multiply 10 <| divide 30 10
