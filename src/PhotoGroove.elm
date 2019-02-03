@@ -11,16 +11,24 @@ urlPrefix =
 view model =
     div [ class "content" ]
         [ h1 [] [ text "Photo Groove" ]
-        , div [ id "thumbnails" ] (List.map viewThumbnail model.photos)
+        , div [ id "thumbnails" ]
+            (List.map (\photo -> viewThumbnail model.selectedUrl photo)
+                model.photos
+            )
+        , img
+            [ class "large"
+            , src (urlPrefix ++ "large/" ++ model.selectedUrl)
+            ]
+            []
         ]
 
 
 viewThumbnail selectedUrl thumb =
-    if selectedUrl == thumb.url then
-        img [ src (urlPrefix ++ thumb.url), class "selected" ] []
-
-    else
-        img [ src (urlPrefix ++ thumb.url) ] []
+    img
+        [ src (urlPrefix ++ thumb.url)
+        , classList [ ( "selected", selectedUrl == thumb.url ) ]
+        ]
+        []
 
 
 initialModel =

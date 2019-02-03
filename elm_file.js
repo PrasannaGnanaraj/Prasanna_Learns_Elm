@@ -3949,14 +3949,18 @@ var elm$core$Set$toList = function (_n0) {
 	var dict = _n0.a;
 	return elm$core$Dict$keys(dict);
 };
-var author$project$PhotoGroove$initialModel = _List_fromArray(
-	[
-		{url: '1.jpeg'},
-		{url: '2.jpeg'},
-		{url: '3.jpeg'}
-	]);
+var author$project$PhotoGroove$initialModel = {
+	photos: _List_fromArray(
+		[
+			{url: '1.jpeg'},
+			{url: '2.jpeg'},
+			{url: '3.jpeg'}
+		]),
+	selectedUrl: '1.jpeg'
+};
 var author$project$PhotoGroove$urlPrefix = 'http://elm-in-action.com/';
 var elm$core$Basics$append = _Utils_append;
+var elm$core$Basics$eq = _Utils_equal;
 var elm$core$Basics$identity = function (x) {
 	return x;
 };
@@ -4040,7 +4044,6 @@ var elm$core$Basics$apR = F2(
 	function (x, f) {
 		return f(x);
 	});
-var elm$core$Basics$eq = _Utils_equal;
 var elm$core$Tuple$first = function (_n0) {
 	var x = _n0.a;
 	return x;
@@ -4370,30 +4373,6 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	}
 };
 var elm$html$Html$img = _VirtualDom_node('img');
-var elm$json$Json$Encode$string = _Json_wrap;
-var elm$html$Html$Attributes$stringProperty = F2(
-	function (key, string) {
-		return A2(
-			_VirtualDom_property,
-			key,
-			elm$json$Json$Encode$string(string));
-	});
-var elm$html$Html$Attributes$src = function (url) {
-	return A2(
-		elm$html$Html$Attributes$stringProperty,
-		'src',
-		_VirtualDom_noJavaScriptOrHtmlUri(url));
-};
-var author$project$PhotoGroove$viewThumbnail = function (thumb) {
-	return A2(
-		elm$html$Html$img,
-		_List_fromArray(
-			[
-				elm$html$Html$Attributes$src(
-				_Utils_ap(author$project$PhotoGroove$urlPrefix, thumb.url))
-			]),
-		_List_Nil);
-};
 var elm$core$List$foldrHelper = F4(
 	function (fn, acc, ctr, ls) {
 		if (!ls.b) {
@@ -4449,6 +4428,17 @@ var elm$core$List$foldr = F3(
 	function (fn, acc, ls) {
 		return A4(elm$core$List$foldrHelper, fn, acc, 0, ls);
 	});
+var elm$core$List$filter = F2(
+	function (isGood, list) {
+		return A3(
+			elm$core$List$foldr,
+			F2(
+				function (x, xs) {
+					return isGood(x) ? A2(elm$core$List$cons, x, xs) : xs;
+				}),
+			_List_Nil,
+			list);
+	});
 var elm$core$List$map = F2(
 	function (f, xs) {
 		return A3(
@@ -4463,11 +4453,57 @@ var elm$core$List$map = F2(
 			_List_Nil,
 			xs);
 	});
+var elm$core$Tuple$second = function (_n0) {
+	var y = _n0.b;
+	return y;
+};
+var elm$json$Json$Encode$string = _Json_wrap;
+var elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			elm$json$Json$Encode$string(string));
+	});
+var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
+var elm$html$Html$Attributes$classList = function (classes) {
+	return elm$html$Html$Attributes$class(
+		A2(
+			elm$core$String$join,
+			' ',
+			A2(
+				elm$core$List$map,
+				elm$core$Tuple$first,
+				A2(elm$core$List$filter, elm$core$Tuple$second, classes))));
+};
+var elm$html$Html$Attributes$src = function (url) {
+	return A2(
+		elm$html$Html$Attributes$stringProperty,
+		'src',
+		_VirtualDom_noJavaScriptOrHtmlUri(url));
+};
+var author$project$PhotoGroove$viewThumbnail = F2(
+	function (selectedUrl, thumb) {
+		return A2(
+			elm$html$Html$img,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$src(
+					_Utils_ap(author$project$PhotoGroove$urlPrefix, thumb.url)),
+					elm$html$Html$Attributes$classList(
+					_List_fromArray(
+						[
+							_Utils_Tuple2(
+							'selected',
+							_Utils_eq(selectedUrl, thumb.url))
+						]))
+				]),
+			_List_Nil);
+	});
 var elm$html$Html$div = _VirtualDom_node('div');
 var elm$html$Html$h1 = _VirtualDom_node('h1');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
-var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
 var elm$html$Html$Attributes$id = elm$html$Html$Attributes$stringProperty('id');
 var author$project$PhotoGroove$view = function (model) {
 	return A2(
@@ -4491,7 +4527,20 @@ var author$project$PhotoGroove$view = function (model) {
 					[
 						elm$html$Html$Attributes$id('thumbnails')
 					]),
-				A2(elm$core$List$map, author$project$PhotoGroove$viewThumbnail, model))
+				A2(
+					elm$core$List$map,
+					function (photo) {
+						return A2(author$project$PhotoGroove$viewThumbnail, model.selectedUrl, photo);
+					},
+					model.photos)),
+				A2(
+				elm$html$Html$img,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('large'),
+						elm$html$Html$Attributes$src(author$project$PhotoGroove$urlPrefix + ('large/' + model.selectedUrl))
+					]),
+				_List_Nil)
 			]));
 };
 var author$project$PhotoGroove$main = author$project$PhotoGroove$view(author$project$PhotoGroove$initialModel);
