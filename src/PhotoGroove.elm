@@ -6,6 +6,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (onClick)
 
 
+urlPrefix : String
 urlPrefix =
     "http://elm-in-action.com/"
 
@@ -25,6 +26,7 @@ view model =
         ]
 
 
+viewThumbnail : String -> { url : String } -> Html.Html { data : String, description : String }
 viewThumbnail selectedUrl thumb =
     img
         [ src (urlPrefix ++ thumb.url)
@@ -34,6 +36,7 @@ viewThumbnail selectedUrl thumb =
         []
 
 
+initialModel : { photos : List { url : String }, selectedUrl : String }
 initialModel =
     { photos =
         [ { url = "1.jpeg" }
@@ -44,6 +47,7 @@ initialModel =
     }
 
 
+update : { description : String, data : String } -> { photos : List { url : String }, selectedUrl : String } -> { photos : List { url : String }, selectedUrl : String }
 update msg model =
     if msg.description == "ClickedPhoto" then
         { model | selectedUrl = msg.data }
