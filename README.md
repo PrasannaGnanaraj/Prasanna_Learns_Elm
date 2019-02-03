@@ -11,7 +11,7 @@ Intrigued by the functional programming pradigm in Elm am trying out few example
   Complie code by 
   
   ```
-  $ elm make HomePage.elm --output elm.js
+  $ elm make fileName.elm --output elm.js
   ```
   and open index.html ***Or***
   run elm reactor (recommended)
