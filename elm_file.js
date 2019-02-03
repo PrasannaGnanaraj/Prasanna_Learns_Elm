@@ -4364,7 +4364,7 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 };
 var elm$html$Html$div = _VirtualDom_node('div');
 var elm$html$Html$h1 = _VirtualDom_node('h1');
-var elm$html$Html$p = _VirtualDom_node('p');
+var elm$html$Html$img = _VirtualDom_node('img');
 var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
 var elm$json$Json$Encode$string = _Json_wrap;
@@ -4376,12 +4376,19 @@ var elm$html$Html$Attributes$stringProperty = F2(
 			elm$json$Json$Encode$string(string));
 	});
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
-var author$project$Main$view = function (model) {
+var elm$html$Html$Attributes$id = elm$html$Html$Attributes$stringProperty('id');
+var elm$html$Html$Attributes$src = function (url) {
+	return A2(
+		elm$html$Html$Attributes$stringProperty,
+		'src',
+		_VirtualDom_noJavaScriptOrHtmlUri(url));
+};
+var author$project$PhotoGroove$view = function (model) {
 	return A2(
 		elm$html$Html$div,
 		_List_fromArray(
 			[
-				elm$html$Html$Attributes$class('jumbotron')
+				elm$html$Html$Attributes$class('content')
 			]),
 		_List_fromArray(
 			[
@@ -4390,16 +4397,39 @@ var author$project$Main$view = function (model) {
 				_List_Nil,
 				_List_fromArray(
 					[
-						elm$html$Html$text('Hello there! Welcome')
+						elm$html$Html$text('Photo Groove')
 					])),
 				A2(
-				elm$html$Html$p,
-				_List_Nil,
+				elm$html$Html$div,
 				_List_fromArray(
 					[
-						elm$html$Html$text('Im trying out Elm and this is my hello world app with it')
+						elm$html$Html$Attributes$id('thumbnails')
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$img,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$src('http://elm-in-action.com/1.jpeg')
+							]),
+						_List_Nil),
+						A2(
+						elm$html$Html$img,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$src('http://elm-in-action.com/2.jpeg')
+							]),
+						_List_Nil),
+						A2(
+						elm$html$Html$img,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$src('http://elm-in-action.com/2.jpeg')
+							]),
+						_List_Nil)
 					]))
 			]));
 };
-var author$project$Main$main = author$project$Main$view('dummy model');
-_Platform_export({'Main':{'init':_VirtualDom_init(author$project$Main$main)(0)(0)}});}(this));
+var author$project$PhotoGroove$main = author$project$PhotoGroove$view('no model yet');
+_Platform_export({'PhotoGroove':{'init':_VirtualDom_init(author$project$PhotoGroove$main)(0)(0)}});}(this));
