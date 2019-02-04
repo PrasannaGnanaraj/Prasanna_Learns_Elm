@@ -14,7 +14,14 @@ type alias Photo =
 type alias Model =
     { photos : List Photo
     , selectedUrl : String
+    , chosenSize : ThumbnailSize
     }
+
+
+type ThumbnailSize
+    = Small
+    | Medium
+    | Large
 
 
 type alias Message =
@@ -63,6 +70,7 @@ initialModel =
         , { url = "3.jpeg" }
         ]
     , selectedUrl = "1.jpeg"
+    , chosenSize = Medium
     }
 
 
