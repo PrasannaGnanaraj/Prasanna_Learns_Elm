@@ -40,6 +40,9 @@ view model =
         , button
             [ onClick { description = "ClickedSurpriseMe", data = "" } ]
             [ text "Surprise Me!" ]
+        , h3 [] [ text "Thumbnail Size:" ]
+        , div [ id "chose-size" ]
+            [ viewSizeChooser Small, viewSizeChooser Medium, viewSizeChooser Large ]
         , div [ id "thumbnails" ]
             (List.map (viewThumbnail model.selectedUrl)
                 model.photos
@@ -60,6 +63,27 @@ viewThumbnail selectedUrl thumb =
         , onClick { description = "ClickedPhoto", data = thumb.url }
         ]
         []
+
+
+viewSizeChooser : ThumbnailSize -> Html Message
+viewSizeChooser size =
+    label []
+        [ input [ type_ "radio", name "size" ] []
+        , text (sizeToString size)
+        ]
+
+
+sizeToString : ThumbnailSize -> String
+sizeToString size =
+    case size of
+        Small ->
+            "small"
+
+        Medium ->
+            "med"
+
+        Large ->
+            "large"
 
 
 initialModel : Model
